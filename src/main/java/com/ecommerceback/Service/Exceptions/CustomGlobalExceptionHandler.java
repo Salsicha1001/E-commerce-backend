@@ -1,5 +1,8 @@
 package com.ecommerceback.Service.Exceptions;
 
+import com.ecommerceback.Model.Localization.Request.AddressRequestDto;
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,14 +11,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -37,8 +38,12 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
                 .stream()
                 .map(x -> x.getDefaultMessage())
                 .collect(Collectors.toList());
-
-        body.put("errors", errors);
+        List<MessageModelError> msgs =new ArrayList<>();
+        for(int i = 0 ;i< errors.size();i++){
+            MessageModelError msg = new MessageModelError(errors.get(i));
+            msgs.add(msg);
+        }
+        body.put("errors",msgs);
 
         return new ResponseEntity<>(body, headers, status);
     }
@@ -46,4 +51,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     public void constraintViolationException(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.BAD_REQUEST.value());
     }
+
 }
+
