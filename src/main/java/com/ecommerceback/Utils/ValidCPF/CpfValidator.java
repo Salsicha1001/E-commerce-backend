@@ -1,6 +1,4 @@
-package com.ecommerceback.Model.Util;
-
-import com.ecommerceback.Utils.Annotations.CPF;
+package com.ecommerceback.Utils.ValidCPF;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

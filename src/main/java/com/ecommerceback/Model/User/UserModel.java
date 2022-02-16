@@ -2,6 +2,7 @@ package com.ecommerceback.Model.User;
 
 import com.ecommerceback.Model.Localization.LocalizationModel;
 import com.ecommerceback.Model.User.Enum.TypeUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -25,6 +26,7 @@ public class UserModel implements Serializable {
     private String cpf;
     private String phone;
     private Integer typeUser;
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<LocalizationModel> address_user = new ArrayList<LocalizationModel>();
 

@@ -7,6 +7,12 @@ public class ResponseModel {
     public static ResponseModel build() {
         return new ResponseModel();
     }
+    public static ResponseModel created(String msg) {
+        return new ResponseModel(201, msg, null);
+    }
+    public static ResponseModel created(String msg, Object obj) {
+        return new ResponseModel(201, msg, obj);
+    }
     public static ResponseModel ok(String msg) {
         return new ResponseModel(200, msg, null);
     }
