@@ -1,6 +1,7 @@
 package com.ecommerceback.Model.Localization;
 
 import com.ecommerceback.Model.User.UserModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public class LocalizationModel implements Serializable {
     private String cep;
     @ManyToOne
     @JoinColumn(name = "id_user")
+    @JsonIgnore
     private UserModel user;
     public LocalizationModel() {
     }

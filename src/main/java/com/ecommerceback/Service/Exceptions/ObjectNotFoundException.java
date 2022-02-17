@@ -1,6 +1,8 @@
 package com.ecommerceback.Service.Exceptions;
 
-public class ObjectNotFoundException extends RuntimeException {
+import java.util.NoSuchElementException;
+
+public class ObjectNotFoundException extends NoSuchElementException {
 
     private static final long serialVersionUID = 1L;
 
@@ -8,8 +10,8 @@ public class ObjectNotFoundException extends RuntimeException {
         super(msg);
     }
 
-    public ObjectNotFoundException(String msg, Throwable cause) {
-        super(msg, cause);
+    public ObjectNotFoundException() {
     }
+
 
 }

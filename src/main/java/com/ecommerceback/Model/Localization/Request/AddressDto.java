@@ -1,6 +1,6 @@
 package com.ecommerceback.Model.Localization.Request;
 
-public class AddressRequestDto {
+public class AddressDto {
     private String street;
     private String district;
     private String city;
@@ -9,10 +9,10 @@ public class AddressRequestDto {
     private String complement;
     private String cep;
 
-    public AddressRequestDto() {
+    public AddressDto() {
     }
 
-    public AddressRequestDto(String street, String district, String city, String state, String number_address, String complement, String cep) {
+    public AddressDto(String street, String district, String city, String state, String number_address, String complement, String cep) {
         this.street = street;
         this.district = district;
         this.city = city;
