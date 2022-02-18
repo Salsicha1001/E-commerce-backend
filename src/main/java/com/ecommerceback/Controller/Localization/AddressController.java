@@ -1,5 +1,6 @@
 package com.ecommerceback.Controller.Localization;
 
+import com.ecommerceback.Model.Localization.LocalizationModel;
 import com.ecommerceback.Model.Localization.Request.AddressRequestDto;
 import com.ecommerceback.Service.Localization.AddressService;
 import com.ecommerceback.Service.User.UserService;
@@ -31,7 +32,10 @@ public class AddressController {
         return addressService.removeAddress(id);
     }
 
-
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<?> editAddress(@PathVariable long id,@RequestBody LocalizationModel address){
+        return null;
+    }
 
 
 

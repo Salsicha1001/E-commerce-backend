@@ -28,8 +28,26 @@ private LocalizationRepository localizationRepository;
 public Object AddressCreated(List<AddressDto> userCreatedDtoRequest, UserModel user){
    List<LocalizationModel> localizationModels =convertObjectAddress(userCreatedDtoRequest,user);
    return localizationRepository.saveAll(localizationModels);
+}
+
+public ResponseEntity<?> editAddress(Long id,LocalizationModel addressDto){
+    LocalizationModel local = getAddressId(id);
+    if(local ==null){
+        return new ResponseEntity<>("Esse Endereço não existe, cadastre um novo novamente",HttpStatus.BAD_REQUEST);
+    }else {
+        local.setState(addressDto.getState());
+        local.setComplement(addressDto.getComplement());
+        local.setNumber_address(addressDto.getNumber_address());
+        local.setStreet(addressDto.getStreet());
+        local.setDistrict(addressDto.getDistrict());
+        local.setCity(addressDto.getCity());
+        local.setCep(addressDto.getCep());
+        LocalizationModel localEdit= localizationRepository.save(local);
+        return new ResponseEntity<>(ResponseModel.ok("Editado com sucesso",localEdit),HttpStatus.NO_CONTENT);
+    }
 
 }
+
 
 public ResponseEntity<?> getAddressByUser(Long id){
    List<LocalizationModel> list = localizationRepository.findAllByUser(id);

@@ -30,14 +30,7 @@ public class UserService {
     @Autowired
     private AuthService authService;
 
-public ResponseEntity<?> addAddressUser(AddressRequestDto address){
-    UserModel user =  findByID(address.getId_user());
-    if(user == null){
-       return new ResponseEntity<>(ResponseModel.error("Usuario não encontrado"),HttpStatus.NOT_FOUND);
-    }
-    Object localizationModels =  addressService.AddressCreated(address.getAddress(),user);
-    return new ResponseEntity<>(localizationModels, HttpStatus.CREATED);
-}
+
 
     public UserModel createUser(UserCreatedDtoRequest userCreated){
             UserModel u= userRepository.save(convertUserModel(userCreated));
@@ -61,6 +54,16 @@ public ResponseEntity<?> addAddressUser(AddressRequestDto address){
         }
         return obj.get();
 }
+
+
+    public ResponseEntity<?> addAddressUser(AddressRequestDto address){
+        UserModel user =  findByID(address.getId_user());
+        if(user == null){
+            return new ResponseEntity<>(ResponseModel.error("Usuario não encontrado"),HttpStatus.NOT_FOUND);
+        }
+        Object localizationModels =  addressService.AddressCreated(address.getAddress(),user);
+        return new ResponseEntity<>(localizationModels, HttpStatus.CREATED);
+    }
 
 
     private UserModel convertUserModel(UserCreatedDtoRequest user){
