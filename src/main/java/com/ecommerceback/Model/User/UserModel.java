@@ -1,5 +1,6 @@
 package com.ecommerceback.Model.User;
 
+import com.ecommerceback.Model.Card.Card;
 import com.ecommerceback.Model.Localization.LocalizationModel;
 import com.ecommerceback.Model.User.Enum.TypeUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,6 +30,9 @@ public class UserModel implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<LocalizationModel> address_user = new ArrayList<LocalizationModel>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Card> cards_id = new ArrayList<Card>();
 
     public UserModel() {
     }

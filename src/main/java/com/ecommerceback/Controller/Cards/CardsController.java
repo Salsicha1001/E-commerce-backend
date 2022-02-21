@@ -1,9 +1,7 @@
 package com.ecommerceback.Controller.Cards;
 
-import com.ecommerceback.Model.Card.Response.CardsDtoResponse;
 import com.ecommerceback.Service.Cards.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +17,28 @@ public class CardsController {
     @GetMapping("/all")
     public ResponseEntity<?> getAllCards( @RequestParam(value="page", defaultValue="1") Integer offset,
                                                                @RequestParam(value="linesPerPage", defaultValue="24") Integer num,
-                                                               @RequestParam(value="orderBy", defaultValue="name") String orderBy,
                                                                @RequestParam(value="language", defaultValue="") String language){
-        return cardService.getAllCardsPage(offset,num,orderBy,language);
+        return cardService.getAllCardsPage(offset,num,language);
+
+    }
+    @GetMapping("/getByName")
+    public ResponseEntity<?> getCardByName(@RequestParam(value="name", defaultValue="") String name,
+                                           @RequestParam(value="language", defaultValue="") String language){
+    return cardService.getCardByName(language,name);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<?> getSearchCards( @RequestParam(value="page", defaultValue="0") Integer offset,
+                                          @RequestParam(value="linesPerPage", defaultValue="24") Integer num,
+                                          @RequestParam(value="language", defaultValue="") String language,
+                                          @RequestParam(value="race", defaultValue="") String race,
+                                          @RequestParam(value="type", defaultValue="") String type,
+                                          @RequestParam(value="archetype", defaultValue="") String archetype,
+                                          @RequestParam(value="attribute", defaultValue="") String attribute,
+                                          @RequestParam(value="level", defaultValue="") String level,
+                                          @RequestParam(value="fname", defaultValue="") String fname,//Pt se language for pt
+                                          @RequestParam(value="def", defaultValue="") String def,
+                                          @RequestParam(value="atk", defaultValue="") String atk){
+        return cardService.getSearchCard(offset,num,language,race,type,archetype,attribute,level,fname,def,atk);
 
     }
 }

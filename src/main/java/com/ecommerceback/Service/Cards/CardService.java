@@ -1,38 +1,45 @@
 package com.ecommerceback.Service.Cards;
 
-import com.ecommerceback.Model.Card.Response.CardsDtoResponse;
 import com.ecommerceback.Model.Card.Response.CardsResponse;
 import com.ecommerceback.Model.Util.ResponseModel;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.http.HttpRequest;
-import java.util.List;
 
 @Service
 public class CardService {
     @Autowired
     private RestTemplate restTemplate;
-    private static final  String url_base = "https://db.ygoprodeck.com/api/v7/cardinfo.php?";
+    private static final String url_base = "https://db.ygoprodeck.com/api/v7/cardinfo.php?";
+    private  String url_language_base="";
+    private static final String url_language="language=";
+    private static final String url_offset="&offset=";
+    private static final String url_num="&num=";
 
-    public ResponseEntity<Page<CardsResponse>> getAllCardsPage(Integer offset,Integer num,String orderBy,String language){
-        try{
-            String url = url_base +"offset="+offset.toString()+"&num="+num.toString()+"&sort="+orderBy;
-            if(!language.equals("")) {
+    private Object addLanguage(String language){
+            if (!language.equals("")) {
                 if (language.equals("fr") || language.equals("pt") || language.equals("it") || language.equals("de")) {
-                    url = url + "&language=" + language;
+                    url_language_base = url_base + url_language + language;
                 } else {
                     return new ResponseEntity(ResponseModel.error("No valid language set. This API accepts the following language values:" +
                             " 'fr', 'de', 'it' or 'pt' which are respectively 'French', 'German', 'Italian' or 'Portuguese'." +
                             " For English, please exclude passing language altogether."), HttpStatus.BAD_REQUEST);
                 }
+            }else{
+                url_language_base = url_base;
             }
+            return null;
+    }
+
+
+    public ResponseEntity<Page<CardsResponse>> getAllCardsPage(Integer offset,Integer num,String language){
+        try{
+            addLanguage(language);
+            String url = url_language_base +url_offset+offset.toString()+url_num+num.toString();
             CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
             return new ResponseEntity(result,HttpStatus.OK);
         }catch (Exception e){
@@ -40,9 +47,74 @@ public class CardService {
             return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+
+    public ResponseEntity<Page<CardsResponse>> getSearchCard(Integer offset, Integer num,String language,String race,String type,
+                                                             String archetype, String attribute,String level,
+                                                             String fname,String def,String atk){
+        try{
+            addLanguage(language);
+            String url = createUrl(race,type,archetype,attribute,level,fname,def,atk, offset, num);;
+            CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
+            return new ResponseEntity(result,HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+    private String createUrl(String race,String type,
+                             String archetype, String attribute,String level,
+                             String fname,String def,String atk,Integer offset, Integer num){
+        String url = url_language_base;
+        if(!race.equals("")){
+            url = url+"&race="+race;
+        } if(!type.equals("")){
+            url = url+"&type="+type;
+        }
+        if(!archetype.equals("")){
+            url = url+"&archetype="+archetype;
+        }if(!attribute.equals("")) {
+            url = url + "&attribute=" + attribute;
+        }if(!level.equals("")){
+            url = url+"&level="+level;
+        }if(!fname.equals("")){
+            url = url+"&fname="+fname;
+        }if(!def.equals("")){
+            url = url+"&def="+def;
+        }
+        if(!atk.equals("")){
+            url = url+"&atk="+atk;
+        }
+        url = url +url_offset+offset.toString()+url_num+num.toString();
+        return url;
+
+    }
+
 /*This API accepts the following parameters: 'name', 'fname', 'desc', 'effect', 'sort',
  'sortorder', 'num', 'offset', 'type', 'atk', 'def', 'level', 'race', 'attribute', 'set',
   'rarity', 'archetype', 'set', 'banlist', 'link', 'scale', 'linkmarker', 'format', 'staple', 'misc',
  'includeAliased', 'startdate', 'enddate', 'dateregion', 'startprice', 'endprice', 'num', 'offset'."*/
 
+
+    public ResponseEntity<?> getCardByName(String language,String name){
+        addLanguage(language);
+        try{
+            String url = url_language_base+"&name="+name;
+            CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
+            return new ResponseEntity(result,HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+    public ResponseEntity<?> getCardByID(String language,Long id){
+        addLanguage(language);
+        try{
+            String url = url_language_base+"&id="+id;
+            CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
+            return new ResponseEntity(result,HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
