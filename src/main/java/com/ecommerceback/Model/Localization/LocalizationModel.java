@@ -109,4 +109,19 @@ public class LocalizationModel implements Serializable {
     public void setUser(UserModel user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "LocalizationModel{" +
+                "id_ed=" + id_ed +
+                ", street='" + street + '\'' +
+                ", district='" + district + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", number_address='" + number_address + '\'' +
+                ", complement='" + complement + '\'' +
+                ", cep='" + cep + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }

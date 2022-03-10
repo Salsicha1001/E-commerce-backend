@@ -19,7 +19,6 @@ public class UserDtoRequest {
     @CPF(message = "CPF Invalido")
     @Column(unique = true)
     private String cpf;
-    @Decrypt
     private String phone;
     @Min(value = 1,message = "Usuário não valido")
     @Max(value = 3,message = "Usuário não valido")

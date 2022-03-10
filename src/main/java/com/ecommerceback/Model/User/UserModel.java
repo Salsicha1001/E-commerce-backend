@@ -10,7 +10,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Entity
 public class UserModel implements Serializable {
     private static final long serialVersionUID =1L;
@@ -26,7 +30,8 @@ public class UserModel implements Serializable {
     @Column(unique = true)
     private String cpf;
     private String phone;
-    private Integer typeUser;
+    @ElementCollection(fetch=FetchType.EAGER)
+    private Set<Integer> typeUser = new HashSet<>();
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<LocalizationModel> address_user = new ArrayList<LocalizationModel>();
@@ -43,7 +48,7 @@ public class UserModel implements Serializable {
         this.email = email;
         this.cpf = cpf;
         this.phone = phone;
-        this.typeUser = typeUser.getCode();
+        setTypeUser(typeUser.equals("")?TypeUser.USER: TypeUser.toEnum(typeUser.getCode()));
         this.address_user = address_user;
     }
 
@@ -87,13 +92,14 @@ public class UserModel implements Serializable {
         this.phone = phone;
     }
 
-    public TypeUser getTypeUser() {
-        return TypeUser.toEnum(typeUser);
+    public Set<TypeUser> getTypeUser() {
+        return typeUser.stream().map(x -> TypeUser.toEnum(x)).collect(Collectors.toSet());
+    }
+    public void setTypeUser(TypeUser type) {
+        typeUser.add(type.getCode());
     }
 
-    public void setTypeUser(TypeUser typeUser) {
-        this.typeUser = typeUser.getCode();
-    }
+
 
     public List<LocalizationModel> getAddress_user() {
         return address_user;
@@ -102,4 +108,5 @@ public class UserModel implements Serializable {
     public void setAddress_user(List<LocalizationModel> address_user) {
         this.address_user = address_user;
     }
+
 }
