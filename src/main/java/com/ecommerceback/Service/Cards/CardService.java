@@ -1,5 +1,6 @@
 package com.ecommerceback.Service.Cards;
 
+import com.ecommerceback.Model.Card.Response.CardsDtoResponse;
 import com.ecommerceback.Model.Card.Response.CardsResponse;
 import com.ecommerceback.Model.Util.ResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 @Service
@@ -61,6 +66,45 @@ public class CardService {
             return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+
+    public ResponseEntity<?> getRandomCardHome(String language){
+        Random r=new Random();
+        List<CardsDtoResponse> res = new ArrayList<CardsDtoResponse>();
+        try{
+            if(language.equals("pt") || language.equals("it")){
+                for(int i =0;i < 10;i++){
+                    String a = String.valueOf(r.nextInt(10436));
+                    addLanguage(language);
+                    String url = url_language_base +url_offset+a+url_num+'1';
+                    CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
+                    res.add(result.getData().get(0));
+                }
+                return new ResponseEntity(res,HttpStatus.OK);
+
+            }else if(language.equals("de")||language.equals("fr")){
+                for(int i =0;i < 10;i++){
+                    String a = String.valueOf(r.nextInt(11380));
+                    addLanguage(language);
+                    String url = url_language_base +url_offset+a+url_num+'1';
+                    CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
+                    res.add(result.getData().get(0));
+                }
+                return new ResponseEntity(res,HttpStatus.OK);
+            }else{
+                for(int i =0;i < 10;i++){
+                    String a = String.valueOf(r.nextInt(11796));
+                    addLanguage(language);
+                    String url = url_language_base +url_offset+a+url_num+'1';
+                    CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
+                    res.add(result.getData().get(0));
+                }
+                return new ResponseEntity(res,HttpStatus.OK);
+            }
+        }catch (Exception e){
+            return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     private String createUrl(String race,String type,
                              String archetype, String attribute,String level,
                              String fname,String def,String atk,Integer offset, Integer num){

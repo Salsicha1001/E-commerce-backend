@@ -21,6 +21,13 @@ public class CardsController {
         return cardService.getAllCardsPage(offset,num,language);
 
     }
+    @GetMapping("/random")
+    public ResponseEntity<?> getRandom(
+
+                                          @RequestParam(value="language", defaultValue="") String language){
+        return cardService.getRandomCardHome(language);
+
+    }
     @GetMapping("/getByName")
     public ResponseEntity<?> getCardByName(@RequestParam(value="name", defaultValue="") String name,
                                            @RequestParam(value="language", defaultValue="") String language){

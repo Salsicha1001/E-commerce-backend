@@ -58,7 +58,7 @@ public class UserService {
                 UserSS userDetails = (UserSS) authentication.getPrincipal();
 
                 return  ResponseEntity.status(HttpStatus.OK).body(ResponseModel.ok("Logado com sucesso",new JwtResponse(jwt,
-                       user.getName(), userDetails.getUsername())));
+                       user.getName(), userDetails.getUsername(), userDetails.getId())));
             }else{
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(ResponseModel.ok("Senha valido"));
