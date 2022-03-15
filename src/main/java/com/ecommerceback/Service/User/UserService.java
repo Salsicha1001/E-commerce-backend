@@ -47,7 +47,7 @@ public class UserService {
         UserModel user =findByEmail(cred.getEmail());
         if(user == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(ResponseModel.error("E-mail inválido"));
+                    .body(ResponseModel.error("Não existe esse E-mail,por favor faça o cadastro"));
         }else{
             AuthenticatorModel auth = authService.getPasswordUser(user);
             if(bCryptPasswordEncoder.matches (cred.getPassword(),auth.getPassword())== true){
