@@ -1,33 +1,21 @@
 package com.ecommerceback.Model.Preferences.Request;
 
-import com.ecommerceback.Model.User.UserModel;
+import com.ecommerceback.Model.Preferences.PreferencesTypesEnum;
 
 public class PreferencesDto {
 
-    private Long id_ed;
     private String configName;
     private String valueConfig;
-    private Class<?> typeValue;
-    private UserModel userModel;
+    private PreferencesTypesEnum typeValue;
 
 
     public PreferencesDto() {
     }
 
-    public PreferencesDto(Long id_ed, String configName, String valueConfig, Class<?> typeValue, UserModel userModel) {
-        this.id_ed = id_ed;
+    public PreferencesDto(String configName, String valueConfig, PreferencesTypesEnum typeValue) {
         this.configName = configName;
         this.valueConfig = valueConfig;
         this.typeValue = typeValue;
-        this.userModel = userModel;
-    }
-
-    public Long getId_ed() {
-        return this.id_ed;
-    }
-
-    public void setId_ed(Long id_ed) {
-        this.id_ed = id_ed;
     }
 
     public String getConfigName() {
@@ -46,20 +34,12 @@ public class PreferencesDto {
         this.valueConfig = valueConfig;
     }
 
-    public Class<?> getTypeValue() {
+    public PreferencesTypesEnum getTypeValue() {
         return this.typeValue;
     }
 
-    public void setTypeValue(Class<?> typeValue) {
+    public void setTypeValue(PreferencesTypesEnum typeValue) {
         this.typeValue = typeValue;
-    }
-
-    public UserModel getUserModel() {
-        return this.userModel;
-    }
-
-    public void setUserModel(UserModel userModel) {
-        this.userModel = userModel;
     }
 
 }

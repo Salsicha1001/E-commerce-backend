@@ -16,18 +16,22 @@ public class PreferencesModel implements Serializable {
     private Long id_ed;
     private String configName;
     private String valueConfig;
-    private Class<?> typeValue;
+    private PreferencesTypesEnum typeValue;
     @ManyToOne
     @JoinColumn(name = "id_user")
     @JsonIgnore
     private UserModel userModel;
+
+    @Transient
+    @JsonIgnore
+    private Object convertedConfig;
 
 
     public PreferencesModel() {
     }
 
 
-    public PreferencesModel(Long id_ed, String configName, String valueConfig, Class<?> typeValue, UserModel userModel) {
+    public PreferencesModel(Long id_ed, String configName, String valueConfig, PreferencesTypesEnum typeValue, UserModel userModel) {
         this.id_ed = id_ed;
         this.configName = configName;
         this.valueConfig = valueConfig;
@@ -60,11 +64,11 @@ public class PreferencesModel implements Serializable {
         this.valueConfig = valueConfig;
     }
 
-    public Class<?> getTypeValue() {
+    public PreferencesTypesEnum getTypeValue() {
         return this.typeValue;
     }
 
-    public void setTypeValue(Class<?> typeValue) {
+    public void setTypeValue(PreferencesTypesEnum typeValue) {
         this.typeValue = typeValue;
     }
 
@@ -74,6 +78,14 @@ public class PreferencesModel implements Serializable {
 
     public void setUserModel(UserModel userModel) {
         this.userModel = userModel;
+    }
+
+    public Object getConvertedConfig(){
+        return this.convertedConfig;
+    }
+
+    public void setConvertedConfig(){
+        this.convertedConfig = typeValue.convertValuePreference(this);
     }
 
 

@@ -2,7 +2,6 @@ package com.ecommerceback.Controller.Preferences;
 
 import com.ecommerceback.Model.Preferences.Request.PreferencesDto;
 import com.ecommerceback.Service.Preferences.PreferencesService;
-import com.ecommerceback.Service.User.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,18 +12,16 @@ import org.springframework.web.bind.annotation.*;
 public class PreferencesController {
     @Autowired
     private PreferencesService preferencesService;
-    @Autowired
-    private UserService userService;
 
-    @PostMapping("/register/{id_user}")
-    public ResponseEntity<?> addAddress(@RequestBody PreferencesDto preferences, @PathVariable long idUser){
-        preferences.setUserModel(userService.findByID(idUser));
-        return preferencesService.RegisterPreference(preferences);
+    @PostMapping("/register/{idUser}")
+    public ResponseEntity<?> registerPreference(@RequestBody PreferencesDto preferences, @PathVariable String idUser){
+        Long tmp = Long.valueOf(idUser);
+        return preferencesService.RegisterPreference(preferences,tmp);
     }
 
-    @GetMapping("/all/{id_user}")
-    public ResponseEntity<?> getAllPreferencesByUser(@PathVariable long id_user){
-        return preferencesService.getPreferencesByUser(id_user);
+    @GetMapping("/all/{idUser}")
+    public ResponseEntity<?> getAllPreferencesByUser(@PathVariable String idUser){
+        return preferencesService.getPreferencesByUser(Long.valueOf(idUser));
     }
 
 

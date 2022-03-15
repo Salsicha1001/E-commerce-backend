@@ -6,6 +6,8 @@ import com.ecommerceback.Model.Preferences.PreferencesModel;
 import com.ecommerceback.Model.Preferences.Request.PreferencesDto;
 import com.ecommerceback.Model.Preferences.Response.PreferencesDtoResponse;
 import com.ecommerceback.Repository.Preferences.PreferencesRepository;
+import com.ecommerceback.Service.User.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +17,11 @@ import org.springframework.stereotype.Service;
 public class PreferencesService {
     @Autowired
     private PreferencesRepository preferencesRepository;
+    @Autowired
+    private UserService userService;
 
-    public ResponseEntity<?> RegisterPreference(PreferencesDto pDto){
-        PreferencesModel pModel = convertObjectPreferences(pDto);
+    public ResponseEntity<?> RegisterPreference(PreferencesDto pDto, Long idUser){
+        PreferencesModel pModel = convertObjectPreferences(pDto, idUser);
         List<PreferencesModel> list = preferencesRepository.findAllByUser(pModel.getUserModel().getId_user());
         if (list.size() > 0){
             for(PreferencesModel pM:list){
@@ -44,14 +48,14 @@ public class PreferencesService {
          return new ResponseEntity<PreferencesDtoResponse>(new PreferencesDtoResponse(list.get(0).getUserModel(),list), HttpStatus.OK);
     }
 
-    private PreferencesModel convertObjectPreferences(PreferencesDto preferencesDto){
+    private PreferencesModel convertObjectPreferences(PreferencesDto preferencesDto, Long idUser){
         PreferencesModel pModel = new PreferencesModel();
-        pModel.setId_ed(preferencesDto.getId_ed());
         pModel.setConfigName(preferencesDto.getConfigName());
         pModel.setValueConfig(preferencesDto.getValueConfig());
         pModel.setTypeValue(preferencesDto.getTypeValue());
-        pModel.setUserModel(preferencesDto.getUserModel());
-
+        if(idUser != null){
+            pModel.setUserModel(userService.findByID(idUser));
+        }
         return pModel;
     }
 
