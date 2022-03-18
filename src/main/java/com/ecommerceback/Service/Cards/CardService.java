@@ -184,7 +184,7 @@ public class CardService {
         for(CardsDtoResponse response: cardsResponse.getData()){
             tmp.add(new CardResume(response.getId(),
                     response.getName(),
-                    response.getCard_images()));
+                    response.getCard_images().get(0).getImage_url_small()));
         }
         result.setData(tmp);
         return result;

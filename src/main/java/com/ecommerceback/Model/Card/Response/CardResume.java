@@ -7,15 +7,15 @@ public class CardResume {
 
     private Long id;
     private String name;
-    private List<CardsImagesDtoResponse> card_images = new ArrayList<>();
+    private String imageSmall;
 
     public CardResume() {
     }
 
-    public CardResume(Long id, String name, List<CardsImagesDtoResponse> card_images) {
+    public CardResume(Long id, String name, String imageSmall) {
         this.id = id;
         this.name = name;
-        this.card_images = card_images;
+        this.imageSmall = imageSmall;
     }
 
     public Long getId() {
@@ -34,11 +34,11 @@ public class CardResume {
         this.name = name;
     }
 
-    public List<CardsImagesDtoResponse> getCard_images() {
-        return card_images;
+    public String getImageSmall() {
+        return imageSmall;
     }
 
-    public void setCard_images(List<CardsImagesDtoResponse> card_images) {
-        this.card_images = card_images;
+    public void setImageSmall(String imageSmall) {
+        this.imageSmall = imageSmall;
     }
 }
