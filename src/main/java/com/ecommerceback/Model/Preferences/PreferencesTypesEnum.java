@@ -4,7 +4,8 @@ import java.lang.reflect.Type;
 
 public enum PreferencesTypesEnum {
     BOOLEAN(Boolean.class),
-    INTEGER(Integer.class);
+    INTEGER(Integer.class),
+    STRING(String.class);
 
     private final Type descType;
 
@@ -18,6 +19,8 @@ public enum PreferencesTypesEnum {
                 return Boolean.valueOf(pModel.getValueConfig());
             case INTEGER:
                 return Integer.parseInt(pModel.getValueConfig());
+            case STRING:
+                return String.valueOf(pModel.getValueConfig());
             default:
                 return null;
         }

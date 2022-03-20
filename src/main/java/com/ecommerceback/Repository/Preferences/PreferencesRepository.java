@@ -14,4 +14,13 @@ public interface PreferencesRepository extends JpaRepository<PreferencesModel, L
     @Query(value = "SELECT * FROM PREFERENCES_MODEL WHERE ID_USER=:id ",nativeQuery = true)
     List<PreferencesModel> findAllByUser(@Param("id")Long id);
 
+    @Query(value = "SELECT * FROM PREFERENCES_MODEL WHERE CONFIG_NAME=:configName AND ID_USER=:id ",nativeQuery = true)
+    PreferencesModel findPreferenceByNameAndUser(@Param("configName")String configName,
+                                                 @Param("id")Long id);
+
+
+
+
+
+
 }

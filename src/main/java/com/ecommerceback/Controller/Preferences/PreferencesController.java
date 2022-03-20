@@ -21,7 +21,13 @@ public class PreferencesController {
 
     @GetMapping("/all/{idUser}")
     public ResponseEntity<?> getAllPreferencesByUser(@PathVariable String idUser){
-        return preferencesService.getPreferencesByUser(Long.valueOf(idUser));
+        return preferencesService.getPreferencesByUser(Long.parseLong(idUser));
+    }
+
+    @GetMapping("/{preferenceName}/{idUser}")
+    public ResponseEntity<?> findPreferenceByNameAndUser(@PathVariable String preferenceName,
+                                                 @PathVariable String idUser){
+        return preferencesService.findPreferenceByNameAndUser(preferenceName,Long.parseLong(idUser));
     }
 
 

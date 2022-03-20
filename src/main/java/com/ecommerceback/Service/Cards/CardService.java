@@ -1,5 +1,7 @@
 package com.ecommerceback.Service.Cards;
 
+import com.ecommerceback.Model.Card.Response.CardResume;
+import com.ecommerceback.Model.Card.Response.CardsResumeDtoResponse;
 import com.ecommerceback.Model.Card.Response.CardsDtoResponse;
 import com.ecommerceback.Model.Card.Response.CardsResponse;
 import com.ecommerceback.Model.Util.ResponseModel;
@@ -160,5 +162,31 @@ public class CardService {
             e.printStackTrace();
             return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    public ResponseEntity<?> getAllCardsResumePage(Integer offset, Integer num, String language) {
+        try{
+            addLanguage(language);
+            String url = url_language_base +url_offset+offset.toString()+url_num+num.toString();
+            CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
+            CardsResumeDtoResponse cards = convertToResumeDTO(result);
+            return new ResponseEntity(cards,HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private CardsResumeDtoResponse convertToResumeDTO(CardsResponse cardsResponse){
+        CardsResumeDtoResponse result = new CardsResumeDtoResponse();
+        result.setMeta(cardsResponse.getMeta());
+        List<CardResume> tmp = new ArrayList<>();
+        for(CardsDtoResponse response: cardsResponse.getData()){
+            tmp.add(new CardResume(response.getId(),
+                    response.getName(),
+                    response.getCard_images().get(0).getImage_url_small()));
+        }
+        result.setData(tmp);
+        return result;
     }
 }

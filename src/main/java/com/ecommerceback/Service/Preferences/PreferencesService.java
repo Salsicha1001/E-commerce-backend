@@ -59,4 +59,13 @@ public class PreferencesService {
         return pModel;
     }
 
+    public ResponseEntity<?> findPreferenceByNameAndUser(String preferenceName, Long id) {
+        PreferencesModel result = preferencesRepository.findPreferenceByNameAndUser(preferenceName, id);
+        if(result==null){
+            return new ResponseEntity<>("Essa configuração não está cadastrada", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<PreferencesModel>(result, HttpStatus.OK);
+
+
+    }
 }
