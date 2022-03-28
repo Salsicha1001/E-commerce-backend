@@ -65,10 +65,8 @@ public class CardService {
             addLanguage(language);
             String url = createUrl(race,type,archetype,attribute,level,fname,def,atk, offset, num);;
             CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
-            if(language.equals("pt")){
-                result = convertPt(result);
-            }
-            return new ResponseEntity(result,HttpStatus.OK);
+            CardsResumeDtoResponse cards = convertToResumeDTO(result);
+            return new ResponseEntity(cards,HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
@@ -190,7 +188,20 @@ public class CardService {
             return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+    public ResponseEntity<?> getAllCardsArctype(String archetype, String language) {
+        try{
+            addLanguage(language);
+            String url = url_language_base+"&archetype="+archetype; ;
+            CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
 
+            CardsResumeDtoResponse cards = convertToResumeDTO(result);
+
+            return new ResponseEntity(cards,HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
     private CardsResumeDtoResponse convertToResumeDTO(CardsResponse cardsResponse){
         CardsResumeDtoResponse result = new CardsResumeDtoResponse();
         result.setMeta(cardsResponse.getMeta());
@@ -198,7 +209,7 @@ public class CardService {
         for(CardsDtoResponse response: cardsResponse.getData()){
             tmp.add(new CardResume(response.getId(),
                     response.getName(),
-                    response.getCard_images().get(0).getImage_url_small()));
+                    response.getCard_images().get(0).getImage_url_small(), response.getArchetype()));
         }
         result.setData(tmp);
         return result;
@@ -266,7 +277,7 @@ public class CardService {
                         msg = "Máquina";
                         break;
                     case "Plant":
-                        msg = "Plantar";
+                        msg = "Planta";
                         break;
                     case "Psychic":
                         msg = "Psíquico";

@@ -44,7 +44,7 @@ public class CardsController {
     }
     @GetMapping("/search")
     public ResponseEntity<?> getSearchCards( @RequestParam(value="page", defaultValue="0") Integer offset,
-                                          @RequestParam(value="linesPerPage", defaultValue="24") Integer num,
+                                          @RequestParam(value="linesPerPage", defaultValue="500") Integer num,
                                           @RequestParam(value="language", defaultValue="") String language,
                                           @RequestParam(value="race", defaultValue="") String race,
                                           @RequestParam(value="type", defaultValue="") String type,
@@ -55,6 +55,10 @@ public class CardsController {
                                           @RequestParam(value="def", defaultValue="") String def,
                                           @RequestParam(value="atk", defaultValue="") String atk){
         return cardService.getSearchCard(offset,num,language,race,type,archetype,attribute,level,fname,def,atk);
-
+    }
+    @GetMapping("/getByArchetype")
+    public ResponseEntity<?> getCardBygetByArtype(@RequestParam(value="archetype", defaultValue="") String archetype,
+                                           @RequestParam(value="language", defaultValue="") String language){
+        return cardService.getAllCardsArctype(archetype,language);
     }
 }
