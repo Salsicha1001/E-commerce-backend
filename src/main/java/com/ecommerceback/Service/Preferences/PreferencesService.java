@@ -5,6 +5,7 @@ import java.util.List;
 import com.ecommerceback.Model.Preferences.PreferencesModel;
 import com.ecommerceback.Model.Preferences.Request.PreferencesDto;
 import com.ecommerceback.Model.Preferences.Response.PreferencesDtoResponse;
+import com.ecommerceback.Model.Util.ResponseModel;
 import com.ecommerceback.Repository.Preferences.PreferencesRepository;
 import com.ecommerceback.Service.User.UserService;
 
@@ -21,17 +22,7 @@ public class PreferencesService {
     private UserService userService;
 
     public ResponseEntity<?> RegisterPreference(PreferencesDto pDto, Long idUser){
-        PreferencesModel pModel = convertObjectPreferences(pDto, idUser);
-        List<PreferencesModel> list = preferencesRepository.findAllByUser(pModel.getUserModel().getId_user());
-        if (list.size() > 0){
-            for(PreferencesModel pM:list){
-                if(pM.getConfigName() == pModel.getConfigName()){
-                    pM.setValueConfig(pModel.getValueConfig());
-                    pModel = pM;
-                    
-                }
-            }
-        }
+        PreferencesModel pModel   = convertObjectPreferences(pDto, idUser);
         if(preferencesRepository.save(pModel) != null){
             return new ResponseEntity<>("As configurações foram alteradas com sucesso",HttpStatus.NO_CONTENT);
         }else{
@@ -40,32 +31,21 @@ public class PreferencesService {
 
     }
 
-    public ResponseEntity<?> getPreferencesByUser(long id_user) {
-        List<PreferencesModel> list = preferencesRepository.findAllByUser(id_user);
-        if(list.size()==0){
-            return new ResponseEntity<>("Não tem Configurações Cadastradas", HttpStatus.NOT_FOUND);
-         }
-         return new ResponseEntity<PreferencesDtoResponse>(new PreferencesDtoResponse(list.get(0).getUserModel(),list), HttpStatus.OK);
+    public ResponseEntity<?> getPreference( Long idUser){
+        PreferencesModel pmodel = preferencesRepository.findByUser(idUser);
+            return new ResponseEntity<>(ResponseModel.ok("",pmodel),HttpStatus.OK);
+
     }
 
+
+
     private PreferencesModel convertObjectPreferences(PreferencesDto preferencesDto, Long idUser){
-        PreferencesModel pModel = new PreferencesModel();
-        pModel.setConfigName(preferencesDto.getConfigName());
-        pModel.setValueConfig(preferencesDto.getValueConfig());
-        pModel.setTypeValue(preferencesDto.getTypeValue());
-        if(idUser != null){
-            pModel.setUserModel(userService.findByID(idUser));
-        }
+        PreferencesModel pModel ;
+            pModel = preferencesRepository.findByUser(idUser);
+            pModel.setTheme(preferencesDto.getTheme());
+            pModel.setLanguage(preferencesDto.getLanguage());
         return pModel;
     }
 
-    public ResponseEntity<?> findPreferenceByNameAndUser(String preferenceName, Long id) {
-        PreferencesModel result = preferencesRepository.findPreferenceByNameAndUser(preferenceName, id);
-        if(result==null){
-            return new ResponseEntity<>("Essa configuração não está cadastrada", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<PreferencesModel>(result, HttpStatus.OK);
 
-
-    }
 }

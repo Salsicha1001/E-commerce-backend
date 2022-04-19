@@ -31,9 +31,7 @@ public class CardsController {
     }
 
     @GetMapping("/random")
-    public ResponseEntity<?> getRandom(
-
-                                          @RequestParam(value="language", defaultValue="") String language){
+    public ResponseEntity<?> getRandom(@RequestParam(value="language", defaultValue="") String language){
         return cardService.getRandomCardHome(language);
 
     }

@@ -2,6 +2,7 @@ package com.ecommerceback.Service.User;
 
 import com.ecommerceback.Model.Localization.LocalizationModel;
 import com.ecommerceback.Model.Localization.Request.AddressRequestDto;
+import com.ecommerceback.Model.Preferences.PreferencesModel;
 import com.ecommerceback.Model.User.AuthenticatorModel;
 import com.ecommerceback.Model.User.Enum.TypeUser;
 import com.ecommerceback.Model.User.Request.CredentialsRequestDto;
@@ -9,6 +10,7 @@ import com.ecommerceback.Model.User.Request.UserCreatedDtoRequest;
 import com.ecommerceback.Model.User.Response.JwtResponse;
 import com.ecommerceback.Model.User.UserModel;
 import com.ecommerceback.Model.Util.ResponseModel;
+import com.ecommerceback.Repository.Preferences.PreferencesRepository;
 import com.ecommerceback.Repository.User.UserRepository;
 import com.ecommerceback.Service.Auth.AuthService;
 import com.ecommerceback.Service.Localization.AddressService;
@@ -42,6 +44,8 @@ public class UserService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JWTUtil jwtUtil;
+    @Autowired
+    private PreferencesRepository preferencesRepository;
 
     public ResponseEntity<?> login(CredentialsRequestDto cred){
         UserModel user =findByEmail(cred.getEmail());
@@ -56,9 +60,9 @@ public class UserService {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 String jwt = jwtUtil.generateJwtToken(authentication);
                 UserSS userDetails = (UserSS) authentication.getPrincipal();
-
+                PreferencesModel pf = preferencesRepository.findByUser(userDetails.getId());
                 return  ResponseEntity.status(HttpStatus.OK).body(ResponseModel.ok("Logado com sucesso",new JwtResponse(jwt,
-                       user.getName(), userDetails.getUsername(), userDetails.getId())));
+                       user.getName(), userDetails.getUsername(), userDetails.getId(),pf)));
             }else{
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(ResponseModel.ok("Senha valido"));
@@ -72,6 +76,14 @@ public class UserService {
             userCreated.setPassword(bCryptPasswordEncoder.encode(userCreated.getPassword()));
             AuthenticatorModel auth= (AuthenticatorModel) authService.saveAuthUser(u,userCreated);
             List<LocalizationModel> localizationModels = (List<LocalizationModel>) addressService.AddressCreated(userCreated.getAddress_user(), u);
+        PreferencesModel pfModel = new PreferencesModel();
+        pfModel.setUserModel(u);
+        pfModel.setLanguage("");
+        pfModel.setTheme(false);
+        preferencesRepository.save(pfModel);
+
+
+
         return u;
     }
     public UserModel findByEmail(String email) {

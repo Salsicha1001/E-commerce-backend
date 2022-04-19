@@ -18,17 +18,12 @@ public class PreferencesController {
         Long tmp = Long.valueOf(idUser);
         return preferencesService.RegisterPreference(preferences,tmp);
     }
-
-    @GetMapping("/all/{idUser}")
-    public ResponseEntity<?> getAllPreferencesByUser(@PathVariable String idUser){
-        return preferencesService.getPreferencesByUser(Long.parseLong(idUser));
+    @GetMapping("/register/{idUser}")
+    public ResponseEntity<?> getPreference( @PathVariable String idUser){
+        Long tmp = Long.valueOf(idUser);
+        return preferencesService.getPreference(tmp);
     }
 
-    @GetMapping("/{preferenceName}/{idUser}")
-    public ResponseEntity<?> findPreferenceByNameAndUser(@PathVariable String preferenceName,
-                                                 @PathVariable String idUser){
-        return preferencesService.findPreferenceByNameAndUser(preferenceName,Long.parseLong(idUser));
-    }
 
 
 

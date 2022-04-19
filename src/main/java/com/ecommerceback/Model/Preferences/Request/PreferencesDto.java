@@ -1,45 +1,34 @@
 package com.ecommerceback.Model.Preferences.Request;
 
-import com.ecommerceback.Model.Preferences.PreferencesTypesEnum;
-
 public class PreferencesDto {
 
-    private String configName;
-    private String valueConfig;
-    private PreferencesTypesEnum typeValue;
+    private Boolean theme;
+    private String language;
 
 
     public PreferencesDto() {
     }
 
-    public PreferencesDto(String configName, String valueConfig, PreferencesTypesEnum typeValue) {
-        this.configName = configName;
-        this.valueConfig = valueConfig;
-        this.typeValue = typeValue;
+
+    public PreferencesDto(Boolean theme, String language) {
+        this.theme = theme;
+        this.language = language;
     }
 
-    public String getConfigName() {
-        return this.configName;
+    public Boolean getTheme() {
+        return theme;
     }
 
-    public void setConfigName(String configName) {
-        this.configName = configName;
+    public void setTheme(Boolean theme) {
+        this.theme = theme;
     }
 
-    public String getValueConfig() {
-        return this.valueConfig;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setValueConfig(String valueConfig) {
-        this.valueConfig = valueConfig;
+    public void setLanguage(String language) {
+        this.language = language;
     }
-
-    public PreferencesTypesEnum getTypeValue() {
-        return this.typeValue;
-    }
-
-    public void setTypeValue(PreferencesTypesEnum typeValue) {
-        this.typeValue = typeValue;
-    }
-
 }
+

@@ -1,6 +1,8 @@
 package com.ecommerceback.Model.User.Response;
 
 
+import com.ecommerceback.Model.Preferences.PreferencesModel;
+
 import java.util.List;
 
 public class JwtResponse {
@@ -9,31 +11,30 @@ public class JwtResponse {
     private Long id;
     private String username;
     private String email;
-    private List<String> roles;
+    private PreferencesModel roles;
 
-    public JwtResponse(String accessToken,String name, String username,long id) {
+    public JwtResponse(String accessToken,String name, String username,long id,PreferencesModel roles ) {
         this.token = accessToken;
         this.username = name;
         this.email = username;
         this.id = id;
+        this.roles = roles;
     }
 
-
-
-    public String getAccessToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.token = accessToken;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getTokenType() {
+    public String getType() {
         return type;
     }
 
-    public void setTokenType(String tokenType) {
-        this.type = tokenType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Long getId() {
@@ -44,14 +45,6 @@ public class JwtResponse {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -60,7 +53,19 @@ public class JwtResponse {
         this.username = username;
     }
 
-    public List<String> getRoles() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public PreferencesModel getRoles() {
         return roles;
+    }
+
+    public void setRoles(PreferencesModel roles) {
+        this.roles = roles;
     }
 }
