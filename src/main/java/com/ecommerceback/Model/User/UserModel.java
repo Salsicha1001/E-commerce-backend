@@ -38,6 +38,9 @@ public class UserModel implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Card> cards_id = new ArrayList<Card>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "user_id")
+    private List<CardUserModel> cart_shopp = new ArrayList<CardUserModel>();
 
     public UserModel() {
     }
