@@ -9,7 +9,7 @@ public class CardUserModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_card;
-    @ManyToOne()
+    @ManyToOne
     private UserModel user_id;
 
     private String number_card;

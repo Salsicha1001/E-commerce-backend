@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/cred_card")
+@RequestMapping("/cred-card")
 public class CredCardController {
     @Autowired
     private CredCardService credCardService;

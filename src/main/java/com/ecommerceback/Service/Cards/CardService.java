@@ -75,7 +75,7 @@ public class CardService {
 
     public ResponseEntity<?> getRandomCardHome(String language){
         Random r=new Random();
-        List<CardsDtoResponse> res = new ArrayList<CardsDtoResponse>();
+        List<CardResume> res = new ArrayList<CardResume>();
         try{
             if(language.equals("pt") || language.equals("it")){
                 for(int i =0;i < 10;i++){
@@ -83,7 +83,11 @@ public class CardService {
                     addLanguage(language);
                     String url = url_language_base +url_offset+a+url_num+'1';
                     CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
-                    res.add(result.getData().get(0));
+                    if(language.equals("pt")){
+                        result = convertPt(result);
+                    }
+                    CardsResumeDtoResponse cards = convertToResumeDTO(result);
+                    res.add(cards.getData().get(0));
                 }
                 return new ResponseEntity(res,HttpStatus.OK);
 
@@ -93,7 +97,8 @@ public class CardService {
                     addLanguage(language);
                     String url = url_language_base +url_offset+a+url_num+'1';
                     CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
-                    res.add(result.getData().get(0));
+                    CardsResumeDtoResponse cards = convertToResumeDTO(result);
+                    res.add(cards.getData().get(0));
                 }
                 return new ResponseEntity(res,HttpStatus.OK);
             }else{
@@ -102,7 +107,8 @@ public class CardService {
                     addLanguage(language);
                     String url = url_language_base +url_offset+a+url_num+'1';
                     CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
-                    res.add(result.getData().get(0));
+                    CardsResumeDtoResponse cards = convertToResumeDTO(result);
+                    res.add(cards.getData().get(0));
                 }
                 return new ResponseEntity(res,HttpStatus.OK);
             }
