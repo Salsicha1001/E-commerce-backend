@@ -1,5 +1,4 @@
 package com.ecommerceback.Service.Cred_Card;
-
 import com.ecommerceback.Model.User.CardUserModel;
 import com.ecommerceback.Model.User.Request.CredCardRequestDto;
 import com.ecommerceback.Model.User.UserModel;
@@ -41,7 +40,21 @@ public ResponseEntity<?> deleteCredCard(Long id){
 
     public ResponseEntity<?> getCredCart(Long id_user){
         UserModel u = userService.findByID(id_user);
+        if(u!=null){
         List<CardUserModel> cart =credCardRepository.findAllByUser(u.getId_user());
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(ResponseModel.ok("Achado", cart));
+        for(CardUserModel c:cart){
+            c.setNumber_card(maskify(c.getNumber_card()));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseModel.ok("Achado", cart));
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseModel.ok("Usuario não encontrado"));
+        }
+    }
+        public static String maskify(String cardNumber) {
+            int length = cardNumber.length() - cardNumber.length()/4;
+            String s = cardNumber.substring(0, length);
+            String res = s.replaceAll("[A-Za-z0-9]", "X") + cardNumber.substring(length);
+            return res;
     }
 }

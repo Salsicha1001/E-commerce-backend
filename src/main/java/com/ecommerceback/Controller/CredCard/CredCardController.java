@@ -16,11 +16,11 @@ public class CredCardController {
     public ResponseEntity<?> saveCardUser(@RequestBody CredCardRequestDto credCardRequestDto) {
         return credCardService.saveCardUser(credCardRequestDto);
     }
-    @GetMapping("/{id}")
+    @GetMapping("")
     public ResponseEntity<?> getCartId(@RequestParam Long id){
         return credCardService.getCredCart(id);
     }
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("")
     public ResponseEntity<?> deleteCart(@RequestParam Long id){
         return credCardService.deleteCredCard(id);
     }

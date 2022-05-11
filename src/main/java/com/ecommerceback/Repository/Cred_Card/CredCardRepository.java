@@ -14,6 +14,6 @@ import java.util.List;
 
 @Repository
 public interface CredCardRepository extends JpaRepository<CardUserModel,Long> {
-    @Query(value = "SELECT * FROM CardUserModel WHERE USER_ID=:id ",nativeQuery = true)
+    @Query(value = "SELECT * FROM CARD_USER_MODEL  WHERE USER_ID_ID_USER=:id ",nativeQuery = true)
     List<CardUserModel> findAllByUser(@Param("id")Long id);
 }

@@ -5,6 +5,7 @@ import com.ecommerceback.Model.User.CheckoutRequest;
 import com.ecommerceback.Model.User.Request.OrderListDto;
 import com.ecommerceback.Model.User.Request.OrdersDtoRequest;
 import com.ecommerceback.Model.User.UserModel;
+import com.ecommerceback.Repository.Cred_Card.CredCardRepository;
 import com.ecommerceback.Repository.Orders.OrderCardsRepository;
 import com.ecommerceback.Repository.Orders.OrdersRequestRepository;
 import com.ecommerceback.Service.User.UserService;
@@ -29,6 +30,8 @@ public class OrdersService {
     private OrderCardsRepository cardsRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CredCardRepository credCardRepository;
 
     public ResponseEntity<?> saveOrders(OrdersDtoRequest request){
         UserModel user = userService.findByID(request.getId_user());
@@ -45,6 +48,8 @@ public class OrdersService {
             cardOrders.add(card);
         }
         CheckoutRequest check = new CheckoutRequest();
+
+        check.setCredCard(credCardRepository.getById(request.getId_credCard()));
         check.setUserId(user);
         check.setCodOrders(codAuth());
         check.setDateShopp(formatDate());

@@ -22,11 +22,13 @@ public class CheckoutRequest implements Serializable {
 
     private String dateShopp;
     private String hourShopp;
+    @ManyToOne
+    private CardUserModel credCard;
 
     public CheckoutRequest() {
     }
 
-    public CheckoutRequest(Long id, UserModel userId, List<CardOrders> cardOrders, String codOrders, String totalValue, String dateShopp, String hourShopp) {
+    public CheckoutRequest(Long id, UserModel userId, List<CardOrders> cardOrders, String codOrders, String totalValue, String dateShopp, String hourShopp, CardUserModel credCard) {
         this.id = id;
         this.userId = userId;
         this.cardOrders = cardOrders;
@@ -34,6 +36,7 @@ public class CheckoutRequest implements Serializable {
         this.totalValue = totalValue;
         this.dateShopp = dateShopp;
         this.hourShopp = hourShopp;
+        this.credCard = credCard;
     }
 
     public Long getId() {
@@ -92,5 +95,11 @@ public class CheckoutRequest implements Serializable {
         this.hourShopp = hourShopp;
     }
 
+    public CardUserModel getCredCard() {
+        return credCard;
+    }
 
+    public void setCredCard(CardUserModel credCard) {
+        this.credCard = credCard;
+    }
 }
