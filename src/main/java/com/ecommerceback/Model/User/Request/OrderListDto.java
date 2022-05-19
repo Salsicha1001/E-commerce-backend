@@ -4,17 +4,17 @@ public class OrderListDto {
 
     private String id_card;
     private String name_card;
-    private String img_url;
+    private String img_card;
     private String price;
     private String qty;
 
     public OrderListDto() {
     }
 
-    public OrderListDto(String id_card, String name_card, String img_url, String price, String qty) {
+    public OrderListDto(String id_card, String name_card, String img_card, String price, String qty) {
         this.id_card = id_card;
         this.name_card = name_card;
-        this.img_url = img_url;
+        this.img_card = img_card;
         this.price = price;
         this.qty = qty;
     }
@@ -35,12 +35,12 @@ public class OrderListDto {
         this.name_card = name_card;
     }
 
-    public String getImg_url() {
-        return img_url;
+    public String getImg_card() {
+        return img_card;
     }
 
-    public void setImg_url(String img_url) {
-        this.img_url = img_url;
+    public void setImg_card(String img_card) {
+        this.img_card = img_card;
     }
 
     public String getPrice() {

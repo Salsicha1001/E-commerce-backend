@@ -15,9 +15,9 @@ public class OrdersController {
     public ResponseEntity<?> saveOrders(@RequestBody OrdersDtoRequest request){
         return ordersService.saveOrders(request);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getOrdersByUser(@RequestParam Long request){
-        return ordersService.getOrdersUser(request);
+    @GetMapping("")
+    public ResponseEntity<?> getOrdersByUser(@RequestParam Long id){
+        return ordersService.getOrdersUser(id);
     }
     @GetMapping("/admin")
     public ResponseEntity<?> getOrders(){

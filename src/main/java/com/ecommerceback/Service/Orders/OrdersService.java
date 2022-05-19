@@ -5,6 +5,7 @@ import com.ecommerceback.Model.User.CheckoutRequest;
 import com.ecommerceback.Model.User.Request.OrderListDto;
 import com.ecommerceback.Model.User.Request.OrdersDtoRequest;
 import com.ecommerceback.Model.User.UserModel;
+import com.ecommerceback.Model.Util.ResponseModel;
 import com.ecommerceback.Repository.Cred_Card.CredCardRepository;
 import com.ecommerceback.Repository.Orders.OrderCardsRepository;
 import com.ecommerceback.Repository.Orders.OrdersRequestRepository;
@@ -42,7 +43,7 @@ public class OrdersService {
             card.setName_card(orderListDto.getName_card());
             card.setPrice(orderListDto.getPrice());
             card.setQty(orderListDto.getQty());
-            card.setImg_url(orderListDto.getImg_url());
+            card.setImg_url(orderListDto.getImg_card());
             card.setId_card(orderListDto.getId_card());
             total+=Double.parseDouble(card.getPrice())*Integer.parseInt(card.getQty());
             cardOrders.add(card);
@@ -102,10 +103,10 @@ public class OrdersService {
 
     public ResponseEntity<?> getOrdersUser(Long id){
         List<CheckoutRequest> list =ordersRequestRepository.findAllByUser(id);
-        return ResponseEntity.status(HttpStatus.OK).body(list);
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseModel.ok("",list));
     }
     public ResponseEntity<?> getOrders(){
         List<CheckoutRequest> list =ordersRequestRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(list);
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseModel.ok("",list));
     }
 }
