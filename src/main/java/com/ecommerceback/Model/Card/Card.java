@@ -1,6 +1,7 @@
 package com.ecommerceback.Model.Card;
 
 import com.ecommerceback.Model.User.UserModel;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.io.Serializable;

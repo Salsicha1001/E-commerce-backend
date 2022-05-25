@@ -1,14 +1,10 @@
 package com.ecommerceback.Service.Auth;
 
 import com.ecommerceback.Model.User.AuthenticatorModel;
-import com.ecommerceback.Model.User.Request.CredentialsRequestDto;
 import com.ecommerceback.Model.User.Request.UserCreatedDtoRequest;
 import com.ecommerceback.Model.User.UserModel;
-import com.ecommerceback.Model.Util.ResponseModel;
 import com.ecommerceback.Repository.Auth.AuthenticationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
