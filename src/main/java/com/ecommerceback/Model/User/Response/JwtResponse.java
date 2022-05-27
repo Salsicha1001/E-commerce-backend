@@ -2,8 +2,9 @@ package com.ecommerceback.Model.User.Response;
 
 
 import com.ecommerceback.Model.Preferences.PreferencesModel;
+import com.ecommerceback.Model.User.Enum.TypeUser;
 
-import java.util.List;
+import java.util.Set;
 
 public class JwtResponse {
     private String token;
@@ -12,13 +13,14 @@ public class JwtResponse {
     private String username;
     private String email;
     private PreferencesModel roles;
-
-    public JwtResponse(String accessToken,String name, String username,long id,PreferencesModel roles ) {
+     private String typeUser;
+    public JwtResponse(String accessToken, String name, String username, long id, PreferencesModel roles, String typeUser) {
         this.token = accessToken;
         this.username = name;
         this.email = username;
         this.id = id;
         this.roles = roles;
+        this.typeUser = typeUser;
     }
 
     public String getToken() {
@@ -67,5 +69,13 @@ public class JwtResponse {
 
     public void setRoles(PreferencesModel roles) {
         this.roles = roles;
+    }
+
+    public String getTypeUser() {
+        return typeUser;
+    }
+
+    public void setTypeUser(String typeUser) {
+        this.typeUser = typeUser;
     }
 }

@@ -61,8 +61,9 @@ public class UserService {
                 String jwt = jwtUtil.generateJwtToken(authentication);
                 UserSS userDetails = (UserSS) authentication.getPrincipal();
                 PreferencesModel pf = preferencesRepository.findByUser(userDetails.getId());
+                String type = String.valueOf(user.getTypeUser()).replace("[","").replace("]","");
                 return  ResponseEntity.status(HttpStatus.OK).body(ResponseModel.ok("Logado com sucesso",new JwtResponse(jwt,
-                       user.getName(), userDetails.getUsername(), userDetails.getId(),pf)));
+                       user.getName(), userDetails.getUsername(), userDetails.getId(),pf,type)));
             }else{
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(ResponseModel.ok("Senha valido"));
