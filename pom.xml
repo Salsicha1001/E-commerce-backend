@@ -14,9 +14,7 @@
     <name>E-commerce-back</name>
     <description>E-commerce-back</description>
     <packaging>jar</packaging>
-    <properties>
-        <java.version>13</java.version>
-    </properties>
+
     <dependencies>
         <dependency>
             <groupId>io.springfox</groupId>
