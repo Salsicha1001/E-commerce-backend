@@ -22,13 +22,6 @@ public class CardsController {
 
     }
 
-    @GetMapping("/getHomeCardsResume")
-    public ResponseEntity<?> getHomeCardsResume( @RequestParam(value="page", defaultValue="1") Integer offset,
-                                                 @RequestParam(value="linesPerPage", defaultValue="24") Integer num,
-                                                 @RequestParam(value="language", defaultValue="") String language){
-
-        return cardService.getAllCardsResumePage(offset,num,language);
-    }
 
     @GetMapping("/random")
     public ResponseEntity<?> getRandom(@RequestParam(value="language", defaultValue="") String language){
