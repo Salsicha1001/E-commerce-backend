@@ -145,12 +145,6 @@ public class CardService {
 
     }
 
-/*This API accepts the following parameters: 'name', 'fname', 'desc', 'effect', 'sort',
- 'sortorder', 'num', 'offset', 'type', 'atk', 'def', 'level', 'race', 'attribute', 'set',
-  'rarity', 'archetype', 'set', 'banlist', 'link', 'scale', 'linkmarker', 'format', 'staple', 'misc',
- 'includeAliased', 'startdate', 'enddate', 'dateregion', 'startprice', 'endprice', 'num', 'offset'."*/
-
-
     public ResponseEntity<?> getCardByName(String language,String name){
         addLanguage(language);
         try{
@@ -180,28 +174,12 @@ public class CardService {
         }
     }
 
-    public ResponseEntity<?> getAllCardsResumePage(Integer offset, Integer num, String language) {
-        try{
-            addLanguage(language);
-            String url = url_language_base +url_offset+offset.toString()+url_num+num.toString();
-            CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
-
-            CardsResumeDtoResponse cards = convertToResumeDTO(result);
-
-            return new ResponseEntity(cards,HttpStatus.OK);
-        }catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
-        }
-    }
     public ResponseEntity<?> getAllCardsArctype(String archetype, String language) {
         try{
             addLanguage(language);
             String url = url_language_base+"&archetype="+archetype; ;
             CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
-
             CardsResumeDtoResponse cards = convertToResumeDTO(result);
-
             return new ResponseEntity(cards,HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();

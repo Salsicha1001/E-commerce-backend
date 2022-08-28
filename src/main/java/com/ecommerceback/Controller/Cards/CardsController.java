@@ -48,7 +48,7 @@ public class CardsController {
         return cardService.getSearchCard(offset,num,language,race,type,archetype,attribute,level,fname,def,atk);
     }
     @GetMapping("/getByArchetype")
-    public ResponseEntity<?> getCardBygetByArtype(@RequestParam(value="archetype", defaultValue="") String archetype,
+    public ResponseEntity<?> getCardByArtype(@RequestParam(value="archetype", defaultValue="") String archetype,
                                            @RequestParam(value="language", defaultValue="") String language){
         return cardService.getAllCardsArctype(archetype,language);
     }
