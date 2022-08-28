@@ -159,20 +159,6 @@ public class CardService {
             return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
-    public ResponseEntity<?> getCardByID(String language,Long id){
-        addLanguage(language);
-        try{
-            String url = url_language_base+"&id="+id;
-            CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
-            if(language.equals("pt")){
-                result = convertPt(result);
-            }
-            return new ResponseEntity(result,HttpStatus.OK);
-        }catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(ResponseModel.error(e.getMessage()), HttpStatus.BAD_REQUEST);
-        }
-    }
 
     public ResponseEntity<?> getAllCardsArctype(String archetype, String language) {
         try{
@@ -198,10 +184,6 @@ public class CardService {
         result.setData(tmp);
         return result;
     }
-
-
-
-
     private CardsResponse convertPt(CardsResponse cardsResponse){
         CardsResponse response = new CardsResponse();
         response.setMeta(cardsResponse.getMeta());
