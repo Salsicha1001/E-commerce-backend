@@ -1,6 +1,5 @@
-package com.ecommerceback.Controller.Cards;
+package com.ecommerceback.controller;
 
-import com.ecommerceback.Service.Cards.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,24 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerceback.service.impl.CardServiceImpl;
+
 @RestController
 @RequestMapping("/cards")
 public class CardsController {
     @Autowired
-    private CardService cardService;
+    private CardServiceImpl cardService;
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllCards( @RequestParam(value="page", defaultValue="1") Integer offset,
                                                                @RequestParam(value="linesPerPage", defaultValue="24") Integer num,
                                                                @RequestParam(value="language", defaultValue="") String language){
         return cardService.getAllCardsPage(offset,num,language);
-
-    }
-
-
-    @GetMapping("/random")
-    public ResponseEntity<?> getRandom(@RequestParam(value="language", defaultValue="") String language){
-        return cardService.getRandomCardHome(language);
 
     }
     @GetMapping("/getByName")

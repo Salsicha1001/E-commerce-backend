@@ -1,4 +1,4 @@
-package com.ecommerceback.Config.Swagger;
+package com.ecommerceback.config.Swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
