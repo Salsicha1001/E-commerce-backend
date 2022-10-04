@@ -68,7 +68,6 @@ public class CardServiceImpl {
         try {
             addLanguage(language);
             String url = createUrl(race, type, archetype, attribute, level, fname, def, atk, offset, num);
-            ;
             CardsResponse result = restTemplate.getForObject(url, CardsResponse.class);
             CardsResumeDtoResponse cards = convertToResumeDTO(result);
             return new ResponseEntity(cards, HttpStatus.OK);
