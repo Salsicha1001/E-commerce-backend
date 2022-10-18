@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.ecommerceback.service.impl.CardServiceImpl;
 
 @RestController
-@CrossOrigin(origins = "https://cards.marcelogonzaga.dev.br")
+@CrossOrigin(origins = "https://marcelogonzaga.dev.br")
 @RequestMapping("/cards")
 public class CardsController {
     @Autowired
