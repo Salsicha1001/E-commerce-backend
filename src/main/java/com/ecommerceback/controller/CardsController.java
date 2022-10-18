@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.*;
 import com.ecommerceback.service.impl.CardServiceImpl;
 
 @RestController
-@CrossOrigin(origins = "https://marcelogonzaga.dev.br")
 @RequestMapping("/cards")
+@CrossOrigin(origins = "https://cards.marcelogonzaga.dev.br, https://marcelogonzaga.dev.br, localhost:8080", maxAge = 3600)
+
 public class CardsController {
     @Autowired
     private CardServiceImpl cardService;
 
     @GetMapping("/all")
+    @CrossOrigin(origins = "https://cards.marcelogonzaga.dev.br, https://marcelogonzaga.dev.br, localhost:8080", maxAge = 3600)
+
     public ResponseEntity<?> getAllCards( @RequestParam(value="page", defaultValue="1") Integer offset,
                                                                @RequestParam(value="linesPerPage", defaultValue="24") Integer num,
                                                                @RequestParam(value="language", defaultValue="") String language){
@@ -21,11 +24,15 @@ public class CardsController {
 
     }
     @GetMapping("/getByName")
+    @CrossOrigin(origins = "https://cards.marcelogonzaga.dev.br, https://marcelogonzaga.dev.br, localhost:8080", maxAge = 3600)
+
     public ResponseEntity<?> getCardByName(@RequestParam(value="name", defaultValue="") String name,
                                            @RequestParam(value="language", defaultValue="") String language){
     return cardService.getCardByName(language,name);
     }
     @GetMapping("/search")
+    @CrossOrigin(origins = "https://cards.marcelogonzaga.dev.br, https://marcelogonzaga.dev.br, localhost:8080", maxAge = 3600)
+
     public ResponseEntity<?> getSearchCards( @RequestParam(value="page", defaultValue="0") Integer offset,
                                           @RequestParam(value="linesPerPage", defaultValue="500") Integer num,
                                           @RequestParam(value="language", defaultValue="") String language,
@@ -40,6 +47,8 @@ public class CardsController {
         return cardService.getSearchCard(offset,num,language,race,type,archetype,attribute,level,fname,def,atk);
     }
     @GetMapping("/getByArchetype")
+    @CrossOrigin(origins = "https://cards.marcelogonzaga.dev.br, https://marcelogonzaga.dev.br, localhost:8080", maxAge = 3600)
+
     public ResponseEntity<?> getCardByArtype(@RequestParam(value="archetype", defaultValue="") String archetype,
                                            @RequestParam(value="language", defaultValue="") String language){
         return cardService.getAllCardsArctype(archetype,language);
