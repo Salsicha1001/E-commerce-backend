@@ -1,0 +1,15 @@
+com\ecommerceback\EcommerceBackApplication.class
+com\ecommerceback\controller\CardsController.class
+com\ecommerceback\model\dto\CardsPricesDtoResponse.class
+com\ecommerceback\model\dto\CardsDtoResponse.class
+com\ecommerceback\model\dto\CardSetsDtoResponse.class
+com\ecommerceback\model\dto\CardsImagesDtoResponse.class
+com\ecommerceback\model\Util\ResponseModel.class
+com\ecommerceback\config\RestTemplateConfig.class
+com\ecommerceback\utils\MessagesUtils.class
+com\ecommerceback\model\dto\PaginationApi.class
+com\ecommerceback\model\dto\CardsResponse.class
+com\ecommerceback\config\Swagger\SwaggerConfig.class
+com\ecommerceback\model\dto\CardsResumeDtoResponse.class
+com\ecommerceback\service\impl\CardServiceImpl.class
+com\ecommerceback\model\dto\CardResumeResponse.class
