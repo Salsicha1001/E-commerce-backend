@@ -11,6 +11,5 @@ com\ecommerceback\model\dto\PaginationApi.class
 com\ecommerceback\model\dto\CardsResponse.class
 com\ecommerceback\config\Swagger\SwaggerConfig.class
 com\ecommerceback\model\dto\CardsResumeDtoResponse.class
-com\ecommerceback\EcommerceBackApplication$1.class
 com\ecommerceback\service\impl\CardServiceImpl.class
 com\ecommerceback\model\dto\CardResumeResponse.class
