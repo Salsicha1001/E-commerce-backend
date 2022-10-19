@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
@@ -27,6 +28,7 @@ public class MyCorsFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         MutableHttpServletRequest mutableRequest = new MutableHttpServletRequest(req);
 
         LOGGER.info("Logging Request  {} : {}", req.getMethod(), req.getRequestURI());
@@ -35,6 +37,11 @@ public class MyCorsFilter implements Filter {
         mutableRequest.putHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
         mutableRequest.putHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
         mutableRequest.putHeader("Access-Control-Max-Age", "3600");
+
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "http://cards.marcelogonzaga.dev.br");
+        httpServletResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, HEAD");
+        httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Content-Type");
+        httpServletResponse.setHeader("Access-Control-Max-Age", "86400");
 //        mutableRequest.putHeader("x-custom-header", "custom value");
         chain.doFilter(mutableRequest, response);
 
