@@ -5,11 +5,14 @@ D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\config\RestTempla
 D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\model\dto\CardResumeResponse.java
 D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\model\dto\CardsResponse.java
 D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\model\dto\CardSetsDtoResponse.java
+D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\utils\MutableHttpServletRequest.java
 D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\model\Util\ResponseModel.java
+D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\config\MyCorsFilter.java
 D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\model\dto\PaginationApi.java
 D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\model\dto\CardsImagesDtoResponse.java
 D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\config\Swagger\SwaggerConfig.java
 D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\EcommerceBackApplication.java
+D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\config\CorsInterceptor.java
 D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\utils\MessagesUtils.java
 D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\model\dto\CardsPricesDtoResponse.java
 D:\TCC Host\E-commerce-backend\src\main\java\com\ecommerceback\service\impl\CardServiceImpl.java
