@@ -38,7 +38,7 @@ public class MyCorsFilter implements Filter {
         mutableRequest.putHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
         mutableRequest.putHeader("Access-Control-Max-Age", "3600");
 
-        httpServletResponse.setHeader("Access-Control-Allow-Origin", "https://cards.marcelogonzaga.dev.br/, http://cards.marcelogonzaga.dev.br/");
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "https://cards.marcelogonzaga.dev.br/");
         httpServletResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, HEAD");
         httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Content-Type");
         httpServletResponse.setHeader("Access-Control-Max-Age", "86400");
